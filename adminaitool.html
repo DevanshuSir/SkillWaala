@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Tools Admin Panel (Dynamic)</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+<style>
+body {
+  background: #f8fafc;
+  font-family: "Poppins", sans-serif;
+}
+.sidebar {
+  width: 240px;
+  background: #111827;
+  position: fixed;
+  height: 100vh;
+  padding-top: 20px;
+}
+.sidebar a {
+  color: #cbd5e1;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.sidebar a:hover, .sidebar a.active {
+  background: #f97316;
+  color: #fff;
+}
+.content-area {
+  margin-left: 260px;
+  padding: 25px;
+}
+.btn-orange {
+  background-color: #f97316;
+  color: white;
+}
+.btn-orange:hover {
+  background-color: #ea580c;
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+</style>
+</head>
+<body>
+
+
+
+
+<div class="content-area">
+  <h4 class="fw-bold mb-4">AI Tools Admin Dashboard</h4>
+
+  <!-- ================= TOOLS LIST ================= -->
+  <section id="listSection">
+    <div class="card p-3 mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="fw-bold">Manage AI Tools (Main Page)</h6>
+        <button class="btn btn-orange btn-sm" data-bs-toggle="modal" data-bs-target="#toolModal"><i class="bi bi-plus-lg"></i> Add Tool</button>
+      </div>
+      <table class="table mt-3" id="toolsTable">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Pricing</th>
+            <th>Platform</th>
+            <th>Rating</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= TOOL DETAILS ================= -->
+  <section id="detailSection">
+    <div class="card p-4">
+      <h6 class="fw-bold mb-3">Tool Detail Management (Detail Page)</h6>
+      <form id="detailForm" class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Tool Name</label>
+          <input id="dName" class="form-control" placeholder="Tool Name" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Subtitle / Tagline</label>
+          <input id="dTag" class="form-control" placeholder="Best AI Tool for..." />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Description</label>
+          <textarea id="dDesc" class="form-control" rows="2"></textarea>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Rating</label>
+          <input id="dRating" type="number" step="0.1" max="5" min="0" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Category</label>
+          <input id="dCategory" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Pricing</label>
+          <select id="dPricing" class="form-select">
+            <option>Free</option>
+            <option>Paid</option>
+            <option>Free + Paid</option>
+          </select>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="col-12 mt-3">
+          <label class="form-label fw-semibold">Key Features</label>
+          <textarea id="dFeatures" class="form-control" rows="3" placeholder="Enter features separated by commas..."></textarea>
+        </div>
+
+        <!-- PROS / CONS -->
+        <div class="col-md-6 mt-3">
+          <label class="form-label fw-semibold">Pros</label>
+          <textarea id="dPros" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="col-md-6 mt-3">
+          <label class="form-label fw-semibold">Cons</label>
+          <textarea id="dCons" class="form-control" rows="3"></textarea>
+        </div>
+
+        <!-- FAQs -->
+        <div class="col-12 mt-3">
+          <label class="form-label fw-semibold">FAQs</label>
+          <textarea id="dFaqs" class="form-control" rows="3" placeholder="Q: ... A: ..."></textarea>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="col-12 mt-3">
+          <label class="form-label fw-semibold">Related Tools</label>
+          <textarea id="dRelated" class="form-control" rows="2" placeholder="Enter related tools (comma separated)"></textarea>
+        </div>
+
+        <div class="col-12 mt-3">
+          <button class="btn btn-orange w-100" type="button" id="saveDetail">Save Tool Details</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+
+<div class="modal fade" id="toolModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title">Add New Tool</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="toolForm" class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Tool Name</label>
+            <input id="tName" class="form-control" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Category</label>
+            <input id="tCategory" class="form-control" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Pricing</label>
+            <select id="tPricing" class="form-select">
+              <option>Free</option>
+              <option>Paid</option>
+              <option>Free + Paid</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Platform</label>
+            <input id="tPlatform" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Rating</label>
+            <input id="tRating" type="number" step="0.1" max="5" min="0" class="form-control" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-orange" id="saveTool">Save Tool</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const tableBody = document.querySelector("#toolsTable tbody");
+const saveTool = document.querySelector("#saveTool");
+const saveDetail = document.querySelector("#saveDetail");
+
+
+let tools = JSON.parse(localStorage.getItem("toolsData")) || [];
+let toolDetails = JSON.parse(localStorage.getItem("toolDetails")) || {};
+
+function renderTable() {
+  tableBody.innerHTML = "";
+  tools.forEach((t, i) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${i + 1}</td>
+      <td>${t.name}</td>
+      <td>${t.category}</td>
+      <td>${t.pricing}</td>
+      <td>${t.platform}</td>
+      <td>${t.rating}</td>
+      <td>
+        <button class='btn btn-sm btn-outline-primary' onclick='loadDetail(${i})'><i class="bi bi-pencil"></i></button>
+        <button class='btn btn-sm btn-outline-danger' onclick='deleteTool(${i})'><i class="bi bi-trash"></i></button>
+      </td>`;
+    tableBody.appendChild(row);
+  });
+}
+renderTable();
+
+// Add tool
+saveTool.addEventListener("click", () => {
+  const name = tName.value.trim();
+  const category = tCategory.value.trim();
+  const pricing = tPricing.value;
+  const platform = tPlatform.value.trim();
+  const rating = tRating.value || "-";
+  if (!name || !category) return alert("Please fill all fields!");
+  tools.push({ name, category, pricing, platform, rating });
+  localStorage.setItem("toolsData", JSON.stringify(tools));
+  renderTable();
+  bootstrap.Modal.getInstance(document.querySelector("#toolModal")).hide();
+  document.querySelector("#toolForm").reset();
+});
+
+// Delete tool
+function deleteTool(i) {
+  tools.splice(i, 1);
+  localStorage.setItem("toolsData", JSON.stringify(tools));
+  renderTable();
+}
+
+// Load detail
+function loadDetail(index) {
+  const t = tools[index];
+  dName.value = t.name;
+  dCategory.value = t.category;
+  dPricing.value = t.pricing;
+  dRating.value = t.rating;
+  alert(`Editing details for: ${t.name}`);
+}
+
+// Save detail info
+saveDetail.addEventListener("click", () => {
+  const d = {
+    name: dName.value,
+    tag: dTag.value,
+    desc: dDesc.value,
+    rating: dRating.value,
+    category: dCategory.value,
+    pricing: dPricing.value,
+    features: dFeatures.value.split(","),
+    pros: dPros.value,
+    cons: dCons.value,
+    faqs: dFaqs.value,
+    related: dRelated.value.split(",")
+  };
+  toolDetails[d.name] = d;
+  localStorage.setItem("toolDetails", JSON.stringify(toolDetails));
+  alert("Tool details saved successfully!");
+});
+</script>
+</body>
+</html>
