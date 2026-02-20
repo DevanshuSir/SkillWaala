@@ -102,6 +102,33 @@
       display: block;
     }
 
+     .social-icons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .social-icons a {
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .social-icons a.yt {
+        color: #ff0000;
+      }
+      .social-icons a.insta {
+        color: #e1306c;
+      }
+      .social-icons a.fb {
+        color: #1877f2;
+      }
+
+      .social-icons a:hover {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+
     /* ---------- OVERVIEW SECTION ---------- */
     .ai-detail-overview {
       background: #fff;
@@ -484,6 +511,21 @@
         <div class="col-lg-9 col-md-8 d-flex flex-wrap align-items-center">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQStH0xSbHXY9g-5eBfbYRlbXX7nkMZHiNOyA&s" class="ai-detail-logo" alt="AI Logo" />
           <div>
+             <div class="social-icons">
+                  
+                  <a
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    class="insta"
+                    ><i class="bi bi-instagram"></i
+                  ></a>
+                  <a href="https://www.youtube.com" target="_blank" class="yt"
+                    ><i class="bi bi-youtube"></i
+                  ></a>
+                  <a href="https://www.facebook.com" target="_blank" class="fb"
+                    ><i class="bi bi-facebook"></i
+                  ></a>
+                </div>
             <p class="ai-detail-subtitle mb-1">BEST AI TOOLS FOR WRITING</p>
             <h2 class="ai-detail-title">Jasper AI</h2>
             <p class="ai-detail-subtitle mb-1">
@@ -877,7 +919,7 @@
 
       </div>
 
-      <button class="ai-download-btn">Download Syllabus</button>
+     
     </div>
   </div>
 
