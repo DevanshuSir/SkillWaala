@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="./css/adminaitool.css" />
 
     <style>
-
-
-
       /* ✅ Extra Styling for Animated Popup */
       .modal-content {
         border-radius: 16px;
@@ -78,7 +75,6 @@
         width: 300px;
         padding: 0;
         overflow: hidden;
-       
       }
 
       .notification-header {
@@ -91,12 +87,11 @@
       .notification .dropdown-item {
         white-space: normal;
         font-size: 14px;
-       
       }
 
-         .notification a{
-           text-decoration: none;
-         }
+      .notification a {
+        text-decoration: none;
+      }
 
       .no-notifications {
         color: gray;
@@ -122,7 +117,6 @@
         background-color: #e9ecef;
       }
 
-      
       .btn-orange {
         background: #f97316;
         color: #fff;
@@ -151,6 +145,46 @@
           padding: 16px;
         }
       }
+
+      .card {
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+      }
+      .btn-orange {
+        background: #f97316;
+        color: #fff;
+      }
+      .btn-orange:hover {
+        background: #ea580c;
+        color: #fff;
+      }
+      .step-section {
+        display: none;
+      }
+      .step-section.active {
+        display: block;
+      }
+      .category-card {
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+      .category-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      }
+      .small-muted {
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+      a.small-link {
+        color: #0d6efd;
+        text-decoration: none;
+      }
+      @media (max-width: 768px) {
+        .container {
+          padding: 8px;
+        }
+      }
     </style>
   </head>
 
@@ -165,7 +199,7 @@
         <a class="nav-link active" href="./admin.html" data-title="Dashboard">
           <i class="fa-solid fa-gauge me-1"></i> <span>Dashboard</span>
         </a>
-          <a
+        <a
           class="nav-link"
           href="./admintotalcourse.html"
           data-title="Total Courses"
@@ -213,7 +247,7 @@
           ><span>Hiring Portal</span>
         </a>
 
-         <a
+        <a
           class="nav-link"
           href="./adminaitool.html"
           data-title="Hiring Portal"
@@ -235,9 +269,12 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-       
-          <img src="./media/ok quality logo.png" alt="Logo" width="130" class="navbar-brand fw-bold mx-auto" />
- 
+        <img
+          src="./media/ok quality logo.png"
+          alt="Logo"
+          width="130"
+          class="navbar-brand fw-bold mx-auto"
+        />
       </div>
     </nav>
 
@@ -268,7 +305,7 @@
                   <a href="./adminnotification.html">
                     <li class="dropdown-item">📩 You have a new message</li>
                   </a>
-                   <a href="./adminnotification.html">
+                  <a href="./adminnotification.html">
                     <li class="dropdown-item">📦 New community message</li>
                   </a>
                   <a href="./adminnotification.html">
@@ -296,277 +333,393 @@
               <h6 class="mb-0 fs-2">Admin</h6>
             </div>
           </div>
-
-          
-         
         </div>
 
-          <!-- Content -->
-    <div class="content-area mt-3">
-      <h4 class="fw-bold mb-4">AI Tools Admin Dashboard</h4>
+        <div class="container mt-3">
+          <h3 class="text-center mb-4 fw-bold">
+            AI Tools Admin Panel
+          </h3>
 
-      <!-- Tools List -->
-      <section id="listSection" class="mb-4">
-        <div class="card p-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <h6 class="fw-bold mb-0">Manage AI Tools</h6>
-            <button
-              class="btn btn-orange btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#toolModal"
-            >
-              <i class="bi bi-plus-lg"></i> Add Tool
-            </button>
-          </div>
-
-          <div class="table-responsive mt-3">
-            <table class="table table-hover align-middle" id="toolsTable">
-              <thead class="table-light">
-                <tr>
-                  <th>S.No</th>
-                  <th>Name</th>
-                  <th>Category</th>
-                  <th>Pricing</th>
-                  <th>Platform</th>
-                  <th>Website</th>
-                  <th>YouTube</th>
-                  <th>Instagram</th>
-                  <th>Facebook</th>
-                  <th>Rating</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Tool Details Section -->
-      <section id="detailSection">
-        <div class="card p-4">
-          <h6 class="fw-semibold mb-3">Tool Detailed Management</h6>
-          <form id="detailForm" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Tool Name</label>
-              <input id="dName" class="form-control" placeholder="Tool Name" />
+          <!-- Step top controls -->
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div>
+              <span class="badge bg-primary"
+                >Step <span id="currentStep">1</span></span
+              >
+              <strong id="stepTitle" class="ms-2">Manage Categories</strong>
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Subtitle / Tagline</label>
-              <input id="dTag" class="form-control" placeholder="Tagline" />
-            </div>
-            <div class="col-12">
-              <label class="form-label">Description</label>
-              <textarea id="dDesc" class="form-control" rows="2"></textarea>
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Rating</label
-              ><input
-                id="dRating"
-                type="number"
-                step="0.1"
-                class="form-control"
-              />
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Category</label
-              ><input id="dCategory" class="form-control" />
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Pricing</label>
-              <select id="dPricing" class="form-select">
-                <option>Free</option>
-                <option>Paid</option>
-                <option>Free + Paid</option>
-              </select>
-            </div>
-
-            <!-- Attributes -->
-            <div class="col-12">
-              <h6 class="mt-3">Attributes</h6>
-              <div class="row g-2">
-                <div class="col-md-3">
-                  <input
-                    id="attrPlatform"
-                    class="form-control"
-                    placeholder="Platform"
-                  />
-                </div>
-                <div class="col-md-3">
-                  <input
-                    id="attrApi"
-                    class="form-control"
-                    placeholder="API (Yes/No)"
-                  />
-                </div>
-                <div class="col-md-3">
-                  <input
-                    id="attrBestFor"
-                    class="form-control"
-                    placeholder="Best For"
-                  />
-                </div>
-                <div class="col-md-3">
-                  <input
-                    id="attrImageGen"
-                    class="form-control"
-                    placeholder="Image Gen (Yes/No)"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <!-- Features & Analysis -->
-            <div class="col-12 mt-3">
-              <label class="form-label">Key Features</label>
-              <textarea
-                id="dFeatures"
-                class="form-control"
-                rows="3"
-                placeholder="comma separated or newline"
-              ></textarea>
-            </div>
-            <div class="col-12 mt-3">
-              <label class="form-label">Detailed Analysis</label>
-              <textarea id="dAnalysis" class="form-control" rows="3"></textarea>
-            </div>
-
-            <!-- Pros Cons -->
-            <div class="col-md-6 mt-3">
-              <label class="form-label">Pros</label
-              ><textarea id="dPros" class="form-control" rows="3"></textarea>
-            </div>
-            <div class="col-md-6 mt-3">
-              <label class="form-label">Cons</label
-              ><textarea id="dCons" class="form-control" rows="3"></textarea>
-            </div>
-
-            <!-- FAQ -->
-            <div class="col-12 mt-3">
-              <h6>FAQs</h6>
-              <div class="row g-2">
-                <div class="col-md-5">
-                  <input
-                    id="faqQ"
-                    class="form-control"
-                    placeholder="Question"
-                  />
-                </div>
-                <div class="col-md-5">
-                  <input id="faqA" class="form-control" placeholder="Answer" />
-                </div>
-                <div class="col-md-2">
-                  <button class="btn btn-orange w-100" id="addFaqBtn">
-                    <i class="bi bi-plus-lg"></i>
-                  </button>
-                </div>
-              </div>
-              <ul id="faqList" class="list-group mt-2"></ul>
-            </div>
-
-            <!-- Related -->
-            <div class="col-12 mt-3">
-              <h6>Related Tools</h6>
-              <div class="row g-2">
-                <div class="col-md-8">
-                  <input
-                    id="dRelatedInput"
-                    class="form-control"
-                    placeholder="Tool Name"
-                  />
-                </div>
-                <div class="col-md-4">
-                  <button
-                    class="btn btn-outline-secondary w-100"
-                    id="addRelatedBtn"
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
-              <ul id="relatedList" class="list-group mt-2"></ul>
-            </div>
-
-            <div class="col-12 mt-3">
-              <button class="btn btn-orange w-100" id="saveDetail">
-                Save Detailed Info
+            <div>
+              <button id="goCat" class="btn btn-outline-secondary btn-sm me-1">
+                Categories
+              </button>
+              <button
+                id="goTools"
+                class="btn btn-outline-secondary btn-sm me-1"
+              >
+                Tools
+              </button>
+              <button id="goDetails" class="btn btn-outline-secondary btn-sm">
+                Details
               </button>
             </div>
-          </form>
-        </div>
-      </section>
-    </div>
-
-    <!-- Add/Edit Modal -->
-    <div class="modal fade" id="toolModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-light">
-            <h5 class="modal-title">Add / Quick Edit Tool</h5>
-            <button class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="modal-body">
-            <form id="toolForm" class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">Tool Name *</label
-                ><input id="tName" class="form-control" />
+
+          <!-- STEP 1: Categories -->
+          <section id="step1" class="step-section active">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Step 1 — Categories</h5>
+              <button
+                class="btn btn-orange btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#categoryModal"
+              >
+                <i class="bi bi-plus-lg"></i> Add Category
+              </button>
+            </div>
+            <div class="row" id="categoryGrid"></div>
+          </section>
+
+          <!-- STEP 2: Tools -->
+          <section id="step2" class="step-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <button
+                  id="backToCat"
+                  class="btn btn-outline-secondary btn-sm me-2"
+                >
+                  <i class="bi bi-arrow-left"></i> Back
+                </button>
+                <h5 class="d-inline">
+                  Step 2 — Tools in
+                  <span id="catTitle" class="text-primary"></span>
+                </h5>
               </div>
-              <div class="col-md-6">
-                <label class="form-label">Category *</label
-                ><input id="tCategory" class="form-control" />
+              <div>
+                <button
+                  class="btn btn-orange btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#toolModal"
+                >
+                  <i class="bi bi-plus-lg"></i> Add Tool
+                </button>
               </div>
-              <div class="col-md-4">
-                <label class="form-label">Pricing</label
-                ><select id="tPricing" class="form-select">
-                  <option>Free</option>
-                  <option>Paid</option>
-                  <option>Free + Paid</option>
-                </select>
+            </div>
+
+            <div class="table-responsive card p-3">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Pricing</th>
+                    <th>Platform</th>
+                    <th>Website</th>
+                    <th>YouTube</th>
+                    <th>Instagram</th>
+                    <th>Facebook</th>
+                    <th>Rating</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="toolsTable"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- STEP 3: Full Details -->
+          <section id="step3" class="step-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <button
+                  id="backToTools"
+                  class="btn btn-outline-secondary btn-sm me-2"
+                >
+                  <i class="bi bi-arrow-left"></i> Back
+                </button>
+                <h5 class="mb-0">Step 3 — Tool Details</h5>
               </div>
-              <div class="col-md-4">
-                <label class="form-label">Platform</label
-                ><input id="tPlatform" class="form-control" />
+              <div>
+                <button id="saveDetailsBtn" class="btn btn-orange btn-sm">
+                  Save Details
+                </button>
               </div>
-              <div class="col-md-4">
-                <label class="form-label">Rating</label
-                ><input
-                  id="tRating"
-                  type="number"
-                  step="0.1"
+            </div>
+
+            <div class="card p-3">
+              <form id="detailForm" class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Tool Name</label>
+                  <input id="dName" class="form-control" readonly />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Subtitle / Tagline</label>
+                  <input id="dTag" class="form-control" />
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Short Description</label>
+                  <textarea id="dDesc" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Rating</label>
+                  <input
+                    id="dRating"
+                    type="number"
+                    step="0.1"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Category</label>
+                  <input id="dCategory" class="form-control" readonly />
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Pricing</label>
+                  <select id="dPricing" class="form-select">
+                    <option>Free</option>
+                    <option>Paid</option>
+                    <option>Free + Paid</option>
+                  </select>
+                </div>
+
+                <!-- Attributes -->
+                <div class="col-12">
+                  <h6 class="mt-2">Attributes</h6>
+                  <div class="row g-2">
+                    <div class="col-md-3">
+                      <input
+                        id="attrPlatform"
+                        class="form-control"
+                        placeholder="Platform"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <input
+                        id="attrApi"
+                        class="form-control"
+                        placeholder="API (Yes/No)"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <input
+                        id="attrBestFor"
+                        class="form-control"
+                        placeholder="Best For"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <input
+                        id="attrImageGen"
+                        class="form-control"
+                        placeholder="Image Gen (Yes/No)"
+                      />
+                    </div>
+                    <div class="col-md-3 mt-2">
+                      <input
+                        id="attrTeamCollab"
+                        class="form-control"
+                        placeholder="Team Collab (Yes/No)"
+                      />
+                    </div>
+                    <div class="col-md-3 mt-2">
+                      <input
+                        id="attrModelType"
+                        class="form-control"
+                        placeholder="Model Type"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                  <label class="form-label">Key Features</label>
+                  <textarea
+                    id="dFeatures"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Comma-separated or newline"
+                  ></textarea>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Detailed Analysis</label>
+                  <textarea
+                    id="dAnalysis"
+                    class="form-control"
+                    rows="4"
+                  ></textarea>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Pros (one per line)</label>
+                  <textarea id="dPros" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Cons (one per line)</label>
+                  <textarea id="dCons" class="form-control" rows="3"></textarea>
+                </div>
+
+                <!-- FAQs -->
+                <div class="col-12">
+                  <h6>FAQs</h6>
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <input
+                        id="faqQ"
+                        class="form-control"
+                        placeholder="Question"
+                      />
+                    </div>
+                    <div class="col-md-5">
+                      <input
+                        id="faqA"
+                        class="form-control"
+                        placeholder="Answer"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <button id="addFaqBtn" class="btn btn-orange w-100">
+                        <i class="bi bi-plus-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <ul id="faqList" class="list-group mt-2"></ul>
+                </div>
+
+                <!-- Related Tools -->
+                <div class="col-12">
+                  <h6>Related Tools</h6>
+                  <div class="row g-2">
+                    <div class="col-md-8">
+                      <input
+                        id="relatedInput"
+                        class="form-control"
+                        placeholder="Related Tool Name"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <button
+                        id="addRelatedBtn"
+                        class="btn btn-outline-secondary w-100"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                  <ul id="relatedList" class="list-group mt-2"></ul>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <!-- Category Modal -->
+        <div class="modal fade" id="categoryModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Category</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input
+                  id="catInput"
                   class="form-control"
+                  placeholder="Category Name"
                 />
               </div>
-              <div class="col-md-6">
-                <label class="form-label">Website URL</label
-                ><input id="tWebsite" class="form-control" />
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel</button
+                ><button id="saveCategory" class="btn btn-orange">Save</button>
               </div>
-              <div class="col-md-6">
-                <label class="form-label">YouTube URL</label
-                ><input id="tYouTube" class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Instagram URL</label
-                ><input id="tInsta" class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Facebook URL</label
-                ><input id="tFacebook" class="form-control" />
-              </div>
-              <div class="col-12">
-                <label class="form-label">Short Description</label
-                ><textarea id="tDesc" class="form-control" rows="2"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">
-              Cancel
-            </button>
-            <button class="btn btn-orange" id="saveToolBtn">Save Tool</button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <!-- Tool Modal (quick add / quick edit top-level fields) -->
+        <div class="modal fade" id="toolModal" tabindex="-1">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add / Quick Edit Tool</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <form id="toolForm" class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Tool Name</label
+                    ><input id="tName" class="form-control" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Category</label
+                    ><input id="tCategory" class="form-control" readonly />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Pricing</label
+                    ><select id="tPricing" class="form-select">
+                      <option>Free</option>
+                      <option>Paid</option>
+                      <option>Free + Paid</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Platform</label
+                    ><input id="tPlatform" class="form-control" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Rating</label
+                    ><input
+                      id="tRating"
+                      type="number"
+                      step="0.1"
+                      class="form-control"
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Website URL</label
+                    ><input id="tWebsite" type="url" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">YouTube URL</label
+                    ><input id="tYouTube" type="url" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Instagram URL</label
+                    ><input id="tInsta" type="url" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Facebook URL</label
+                    ><input id="tFacebook" type="url" class="form-control" />
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Short Description</label
+                    ><textarea
+                      id="tDesc"
+                      class="form-control"
+                      rows="2"
+                    ></textarea>
+                  </div>
+
+                  <input type="file" name="" id="" class="form-control" />
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel</button
+                ><button id="saveTool" class="btn btn-orange">Save Tool</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Footer -->
@@ -644,59 +797,6 @@
         if (link.href === currentLocation) link.classList.add("active");
         else link.classList.remove("active");
       });
-
-      // ✅ Trainer selection + popup confirm deactivate
-      document.querySelectorAll(".trainer-select").forEach((select) => {
-        select.addEventListener("change", function () {
-          const selectedName = this.value;
-          const parentCourse = this.closest(".course-item");
-          const trainerContainer =
-            parentCourse.querySelector(".selected-trainers");
-
-          const alreadyExists = [...trainerContainer.children].some(
-            (el) => el.querySelector("span").innerText === selectedName
-          );
-          if (alreadyExists) {
-            this.value = "----Select Trainer----";
-            return;
-          }
-
-          const badge = document.createElement("div");
-          badge.className =
-            "badge bg-primary text-light d-flex align-items-center gap-2 px-2 py-1";
-          badge.innerHTML = `
-              <span>${selectedName}</span>
-              <i class="bi bi-x-circle-fill text-light remove-trainer" style="cursor:pointer; font-size: 14px;"></i>
-            `;
-          trainerContainer.appendChild(badge);
-          this.value = "----Select Trainer----";
-        });
-      });
-
-      let selectedBadge = null;
-
-      document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("remove-trainer")) {
-          selectedBadge = e.target.closest(".badge");
-          const modal = new bootstrap.Modal(
-            document.getElementById("deactivateModal")
-          );
-          modal.show();
-        }
-      });
-
-      document
-        .getElementById("confirmDeactivate")
-        .addEventListener("click", function () {
-          if (selectedBadge) {
-            selectedBadge.classList.remove("bg-primary");
-            selectedBadge.classList.add("bg-danger");
-          }
-          const modal = bootstrap.Modal.getInstance(
-            document.getElementById("deactivateModal")
-          );
-          modal.hide();
-        });
     </script>
 
     <script>
@@ -724,199 +824,452 @@
       });
     </script>
 
-      <script>
-      let tools = [],
-        details = {};
-      let editIndex = null;
+    <script>
+      let categories = [];
+      let toolsByCategory = {};
+      let detailsByTool = {};
+      let currentCategory = null;
+      let editingToolIndex = null;
 
-      // Render tools
-      function renderTools() {
-        const tbody = document.querySelector("#toolsTable tbody");
-        tbody.innerHTML = "";
-        tools.forEach((t, i) => {
-          tbody.insertAdjacentHTML(
+      /* Step helpers */
+      function showStep(n) {
+        document
+          .querySelectorAll(".step-section")
+          .forEach((s, i) => s.classList.toggle("active", i === n - 1));
+        document.getElementById("currentStep").innerText = n;
+        const titles = ["Manage Categories", "Manage Tools", "Tool Details"];
+        document.getElementById("stepTitle").innerText = titles[n - 1];
+      }
+
+      /* Nav btns */
+      document.getElementById("goCat").onclick = () => showStep(1);
+      document.getElementById("goTools").onclick = () => {
+        if (!currentCategory) return alert("Open a category first");
+        showStep(2);
+      };
+      document.getElementById("goDetails").onclick = () =>
+        alert("Open a tool from Step 2 to edit full details.");
+
+      /* CATEGORY: add / render / open */
+      function renderCategories() {
+        const grid = document.getElementById("categoryGrid");
+        grid.innerHTML = "";
+        if (categories.length === 0) {
+          grid.innerHTML =
+            '<div class="col-12"><div class="alert alert-info">No categories yet. Add one using "Add Category".</div></div>';
+          return;
+        }
+        categories.forEach((cat) => {
+          const count = (toolsByCategory[cat] || []).length;
+          grid.insertAdjacentHTML(
             "beforeend",
             `
-    <tr>
-      <td>${i + 1}</td><td>${t.name}</td><td>${t.category}</td><td>${t.pricing}</td><td>${t.platform}</td>
-      <td>${t.website || "-"}</td><td>${t.youtube || "-"}</td><td>${t.instagram || "-"}</td><td>${t.facebook || "-"}</td>
-      <td>${t.rating || "-"}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-primary me-1" onclick="loadDetail(${i})" title="Full Edit"><i class="bi bi-pencil"></i></button>
-        <button class="btn btn-sm btn-outline-secondary me-1" onclick="prefillModal(${i})" title="Quick Edit"><i class="bi bi-pencil-square"></i></button>
-        <button class="btn btn-sm btn-outline-danger" onclick="deleteTool(${i})"><i class="bi bi-trash"></i></button>
-      </td>
-    </tr>`,
+      <div class="col-md-4 mb-3">
+        <div class="card p-3 category-card">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5 class="mb-1">${escapeHtml(cat)}</h5>
+              <div class="small-muted">${count} tools</div>
+            </div>
+            <div class="text-end">
+              <button class="btn btn-sm btn-outline-primary me-1" onclick="openCategory(event,'${escapeAttr(cat)}')"><i class="bi bi-box-arrow-up-right"></i></button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(event,'${escapeAttr(cat)}')"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>`,
           );
         });
       }
-      function deleteTool(i) {
-        if (confirm("Delete this tool?")) {
-          tools.splice(i, 1);
-          renderTools();
+
+      document.getElementById("saveCategory").addEventListener("click", () => {
+        const v = document.getElementById("catInput").value.trim();
+        if (!v) return alert("Enter category name");
+        if (!categories.includes(v)) {
+          categories.push(v);
+          toolsByCategory[v] = [];
         }
-      }
-
-      // Modal Save
-      saveToolBtn.addEventListener("click", () => {
-        const t = {
-          name: tName.value,
-          category: tCategory.value,
-          pricing: tPricing.value,
-          platform: tPlatform.value,
-          rating: tRating.value,
-          website: tWebsite.value,
-          youtube: tYouTube.value,
-          instagram: tInsta.value,
-          facebook: tFacebook.value,
-          desc: tDesc.value,
-        };
-        if (!t.name || !t.category)
-          return alert("Please fill required fields!");
-        if (editIndex !== null) {
-          tools[editIndex] = t;
-          editIndex = null;
-        } else tools.push(t);
-        renderTools();
-        document.querySelector("#toolForm").reset();
+        document.getElementById("catInput").value = "";
         bootstrap.Modal.getInstance(
-          document.querySelector("#toolModal"),
+          document.getElementById("categoryModal"),
         ).hide();
+        renderCategories();
       });
-      function prefillModal(i) {
-        const t = tools[i];
-        editIndex = i;
-        tName.value = t.name;
-        tCategory.value = t.category;
-        tPricing.value = t.pricing;
-        tPlatform.value = t.platform;
-        tRating.value = t.rating;
-        tWebsite.value = t.website;
-        tYouTube.value = t.youtube;
-        tInsta.value = t.instagram;
-        tFacebook.value = t.facebook;
-        tDesc.value = t.desc;
-        new bootstrap.Modal(document.querySelector("#toolModal")).show();
-      }
 
-      // Load Detail Editor
-      function loadDetail(i) {
-        const t = tools[i];
-        if (!t) return;
-        dName.value = t.name;
-        dCategory.value = t.category;
-        dPricing.value = t.pricing;
-        dRating.value = t.rating;
-        dDesc.value = t.desc;
-        const d = details[t.name] || {};
-        dTag.value = d.tag || "";
-        dFeatures.value = (d.features || []).join(", ");
-        dAnalysis.value = d.analysis || "";
-        dPros.value = (d.pros || []).join("\\n");
-        dCons.value = (d.cons || []).join("\\n");
-        attrPlatform.value = d.attributes?.platform || t.platform || "";
-        attrApi.value = d.attributes?.api || "";
-        attrBestFor.value = d.attributes?.bestFor || "";
-        attrImageGen.value = d.attributes?.imageGen || "";
-        renderFaqList(d.faqs || []);
-        renderRelatedList(d.related || []);
-        document
-          .getElementById("detailSection")
-          .scrollIntoView({ behavior: "smooth" });
-      }
+      window.openCategory = function (ev, cat) {
+        ev.stopPropagation();
+        currentCategory = cat;
+        document.getElementById("catTitle").innerText = cat;
+        document.getElementById("tCategory").value = cat;
+        renderTools();
+        showStep(2);
+      };
 
-      // FAQ + Related controls
-      function renderFaqList(list) {
-        faqList.innerHTML = "";
-        list.forEach((f, i) =>
-          faqList.insertAdjacentHTML(
+      window.deleteCategory = function (ev, cat) {
+        ev.stopPropagation();
+        if (!confirm(`Delete category "${cat}" and its tools?`)) return;
+        categories = categories.filter((c) => c !== cat);
+        delete toolsByCategory[cat];
+        // optionally delete details of tools in that category
+        renderCategories();
+        if (currentCategory === cat) {
+          currentCategory = null;
+          showStep(1);
+        }
+      };
+
+      /* TOOLS: render / add / quick-edit / delete / open detail */
+      function renderTools() {
+        const tbody = document.getElementById("toolsTable");
+        tbody.innerHTML = "";
+        const arr = toolsByCategory[currentCategory] || [];
+        if (arr.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="11" class="text-center text-muted">No tools yet. Add using "Add Tool".</td></tr>';
+          return;
+        }
+        arr.forEach((t, i) => {
+          tbody.insertAdjacentHTML(
             "beforeend",
-            `<li class='list-group-item d-flex justify-content-between'><div><b>Q:</b>${f.q}<br><small><b>A:</b>${f.a}</small></div><button class='btn btn-sm btn-outline-danger' onclick='removeFaq(${i})'><i class='bi bi-x'></i></button></li>`,
+            `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${escapeHtml(t.name)}</td>
+        <td>${escapeHtml(t.category)}</td>
+        <td>${escapeHtml(t.pricing)}</td>
+        <td>${escapeHtml(t.platform)}</td>
+        <td>${linkOrDash(t.website)}</td>
+        <td>${linkOrDash(t.youtube)}</td>
+        <td>${linkOrDash(t.instagram)}</td>
+        <td>${linkOrDash(t.facebook)}</td>
+        <td>${escapeHtml(t.rating || "-")}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-1" onclick="openDetail('${escapeAttr(t.name)}')"><i class="bi bi-pencil"></i></button>
+          <button class="btn btn-sm btn-outline-secondary me-1" onclick="quickEdit('${i}')"><i class="bi bi-pencil-square"></i></button>
+          <button class="btn btn-sm btn-outline-danger" onclick="deleteTool(${i})"><i class="bi bi-trash"></i></button>
+        </td>
+      </tr>
+    `,
+          );
+        });
+      }
+
+      function linkOrDash(url) {
+        if (!url) return "-";
+        const short = url.length > 30 ? url.slice(0, 28) + "..." : url;
+        return `<a href="${escapeAttr(url)}" class="small-link" target="_blank" rel="noreferrer">${escapeHtml(short)}</a>`;
+      }
+
+      document.getElementById("saveTool").addEventListener("click", () => {
+        const obj = {
+          name: document.getElementById("tName").value.trim(),
+          category: document.getElementById("tCategory").value,
+          pricing: document.getElementById("tPricing").value,
+          platform: document.getElementById("tPlatform").value.trim(),
+          rating: document.getElementById("tRating").value.trim(),
+          website: document.getElementById("tWebsite").value.trim(),
+          youtube: document.getElementById("tYouTube").value.trim(),
+          instagram: document.getElementById("tInsta").value.trim(),
+          facebook: document.getElementById("tFacebook").value.trim(),
+          shortDesc: document.getElementById("tDesc").value.trim(),
+        };
+        if (!obj.name) return alert("Tool name required");
+        if (!currentCategory) return alert("Open a category first");
+        toolsByCategory[currentCategory].push(obj);
+        bootstrap.Modal.getInstance(
+          document.getElementById("toolModal"),
+        ).hide();
+        document.getElementById("toolForm").reset();
+        renderTools();
+      });
+
+      window.quickEdit = function (index) {
+        const arr = toolsByCategory[currentCategory];
+        if (!arr || !arr[index]) return;
+        const t = arr[index];
+        editingToolIndex = index;
+        // fill modal with values for quick editing
+        document.getElementById("tName").value = t.name;
+        document.getElementById("tCategory").value = t.category;
+        document.getElementById("tPricing").value = t.pricing;
+        document.getElementById("tPlatform").value = t.platform;
+        document.getElementById("tRating").value = t.rating;
+        document.getElementById("tWebsite").value = t.website;
+        document.getElementById("tYouTube").value = t.youtube;
+        document.getElementById("tInsta").value = t.instagram;
+        document.getElementById("tFacebook").value = t.facebook;
+        document.getElementById("tDesc").value = t.shortDesc || "";
+        new bootstrap.Modal(document.getElementById("toolModal")).show();
+
+        // override save action to update instead of push
+        const saveBtn = document.getElementById("saveTool");
+        const handler = function () {
+          const updated = {
+            name: document.getElementById("tName").value.trim(),
+            category: document.getElementById("tCategory").value,
+            pricing: document.getElementById("tPricing").value,
+            platform: document.getElementById("tPlatform").value.trim(),
+            rating: document.getElementById("tRating").value.trim(),
+            website: document.getElementById("tWebsite").value.trim(),
+            youtube: document.getElementById("tYouTube").value.trim(),
+            instagram: document.getElementById("tInsta").value.trim(),
+            facebook: document.getElementById("tFacebook").value.trim(),
+            shortDesc: document.getElementById("tDesc").value.trim(),
+          };
+          if (!updated.name) return alert("Tool name required");
+          toolsByCategory[currentCategory][editingToolIndex] = updated;
+          bootstrap.Modal.getInstance(
+            document.getElementById("toolModal"),
+          ).hide();
+          document.getElementById("toolForm").reset();
+          renderTools();
+          // cleanup: restore original click behavior by removing this handler and re-adding original
+          saveBtn.removeEventListener("click", handler);
+          saveBtn.addEventListener("click", defaultSaveToolHandler);
+          editingToolIndex = null;
+        };
+        // replace handler
+        saveBtn.removeEventListener("click", defaultSaveToolHandler);
+        saveBtn.addEventListener("click", handler, { once: true });
+      };
+
+      // keep default save handler reference to restore after quick edit
+      function defaultSaveToolHandler() {
+        const obj = {
+          name: document.getElementById("tName").value.trim(),
+          category: document.getElementById("tCategory").value,
+          pricing: document.getElementById("tPricing").value,
+          platform: document.getElementById("tPlatform").value.trim(),
+          rating: document.getElementById("tRating").value.trim(),
+          website: document.getElementById("tWebsite").value.trim(),
+          youtube: document.getElementById("tYouTube").value.trim(),
+          instagram: document.getElementById("tInsta").value.trim(),
+          facebook: document.getElementById("tFacebook").value.trim(),
+          shortDesc: document.getElementById("tDesc").value.trim(),
+        };
+        if (!obj.name) return alert("Tool name required");
+        if (!currentCategory) return alert("Open a category first");
+        toolsByCategory[currentCategory].push(obj);
+        bootstrap.Modal.getInstance(
+          document.getElementById("toolModal"),
+        ).hide();
+        document.getElementById("toolForm").reset();
+        renderTools();
+      }
+      document
+        .getElementById("saveTool")
+        .addEventListener("click", defaultSaveToolHandler);
+
+      window.deleteTool = function (i) {
+        if (!confirm("Delete tool?")) return;
+        toolsByCategory[currentCategory].splice(i, 1);
+        renderTools();
+      };
+
+      /* Open full detail editor (Step 3) */
+      window.openDetail = function (toolName) {
+        // find tool object by name in current category
+        const tool =
+          (toolsByCategory[currentCategory] || []).find(
+            (t) => t.name === toolName,
+          ) || {};
+        // fill Step 3 fields
+        document.getElementById("dName").value = tool.name || toolName;
+        document.getElementById("dCategory").value =
+          currentCategory || tool.category || "";
+        document.getElementById("dRating").value = tool.rating || "";
+        document.getElementById("dPricing").value = tool.pricing || "";
+        // if details exist, fill them
+        const d = detailsByTool[tool.name] || {};
+        document.getElementById("dTag").value = d.tag || "";
+        document.getElementById("dDesc").value = d.desc || tool.shortDesc || "";
+        document.getElementById("attrPlatform").value =
+          d.attributes?.platform || tool.platform || "";
+        document.getElementById("attrApi").value = d.attributes?.api || "";
+        document.getElementById("attrBestFor").value =
+          d.attributes?.bestFor || "";
+        document.getElementById("attrImageGen").value =
+          d.attributes?.imageGen || "";
+        document.getElementById("attrTeamCollab").value =
+          d.attributes?.teamCollab || "";
+        document.getElementById("attrModelType").value =
+          d.attributes?.modelType || "";
+        document.getElementById("dFeatures").value = (d.features || []).join(
+          ", ",
+        );
+        document.getElementById("dAnalysis").value = d.analysis || "";
+        document.getElementById("dPros").value = (d.pros || []).join("\n");
+        document.getElementById("dCons").value = (d.cons || []).join("\n");
+        renderFaqs(d.faqs || []);
+        renderRelated(d.related || []);
+        showStep(3);
+      };
+
+      /* FAQ helpers */
+      function renderFaqs(list) {
+        const el = document.getElementById("faqList");
+        el.innerHTML = "";
+        (list || []).forEach((f, i) =>
+          el.insertAdjacentHTML(
+            "beforeend",
+            `
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div><strong>Q:</strong> ${escapeHtml(f.q)}<br><small><strong>A:</strong> ${escapeHtml(f.a)}</small></div>
+      <button class="btn btn-sm btn-outline-danger" onclick="removeFaq(${i})"><i class="bi bi-x"></i></button>
+    </li>`,
           ),
         );
       }
-      function getFaqs() {
+      function getFaqsFromUI() {
         const arr = [];
-        faqList.querySelectorAll("li").forEach((li) => {
-          const qa = li.innerText.split("A:");
-          arr.push({ q: qa[0].replace("Q:", "").trim(), a: qa[1]?.trim() });
+        document.querySelectorAll("#faqList li").forEach((li) => {
+          const txt = li.querySelector("div").innerText;
+          const parts = txt.split("A:");
+          arr.push({
+            q: parts[0].replace("Q:", "").trim(),
+            a: parts[1]?.trim(),
+          });
         });
         return arr;
       }
-      function removeFaq(i) {
-        const arr = getFaqs();
+      window.removeFaq = function (i) {
+        const arr = getFaqsFromUI();
         arr.splice(i, 1);
-        renderFaqList(arr);
-      }
-      addFaqBtn.addEventListener("click", (e) => {
+        renderFaqs(arr);
+      };
+      document.getElementById("addFaqBtn").addEventListener("click", (e) => {
         e.preventDefault();
-        if (!faqQ.value || !faqA.value) return;
-        const arr = getFaqs();
-        arr.push({ q: faqQ.value, a: faqA.value });
-        renderFaqList(arr);
-        faqQ.value = "";
-        faqA.value = "";
+        const q = document.getElementById("faqQ").value.trim();
+        const a = document.getElementById("faqA").value.trim();
+        if (!q || !a) return alert("Enter both Q and A");
+        const cur = getFaqsFromUI();
+        cur.push({ q, a });
+        renderFaqs(cur);
+        document.getElementById("faqQ").value = "";
+        document.getElementById("faqA").value = "";
       });
 
-      function renderRelatedList(list) {
-        relatedList.innerHTML = "";
-        list.forEach((r, i) =>
-          relatedList.insertAdjacentHTML(
+      /* Related helpers */
+      function renderRelated(list) {
+        const el = document.getElementById("relatedList");
+        el.innerHTML = "";
+        (list || []).forEach((r, i) =>
+          el.insertAdjacentHTML(
             "beforeend",
-            `<li class='list-group-item d-flex justify-content-between'>${r}<button class='btn btn-sm btn-outline-danger' onclick='removeRelated(${i})'><i class='bi bi-x'></i></button></li>`,
+            `<li class="list-group-item d-flex justify-content-between">${escapeHtml(r)}<button class="btn btn-sm btn-outline-danger" onclick="removeRelated(${i})"><i class="bi bi-x"></i></button></li>`,
           ),
         );
       }
-      function getRelated() {
+      function getRelatedFromUI() {
         const arr = [];
-        relatedList
-          .querySelectorAll("li")
+        document
+          .querySelectorAll("#relatedList li")
           .forEach((li) => arr.push(li.firstChild.textContent.trim()));
         return arr;
       }
-      function removeRelated(i) {
-        const arr = getRelated();
+      window.removeRelated = function (i) {
+        const arr = getRelatedFromUI();
         arr.splice(i, 1);
-        renderRelatedList(arr);
-      }
-      addRelatedBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (!dRelatedInput.value) return;
-        const arr = getRelated();
-        arr.push(dRelatedInput.value);
-        renderRelatedList(arr);
-        dRelatedInput.value = "";
-      });
+        renderRelated(arr);
+      };
+      document
+        .getElementById("addRelatedBtn")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          const v = document.getElementById("relatedInput").value.trim();
+          if (!v) return alert("Enter related tool");
+          const arr = getRelatedFromUI();
+          arr.push(v);
+          renderRelated(arr);
+          document.getElementById("relatedInput").value = "";
+        });
 
-      // Save Detail
-      saveDetail.addEventListener("click", () => {
-        const name = dName.value.trim();
-        if (!name) return alert("Enter name");
-        details[name] = {
-          tag: dTag.value,
-          desc: dDesc.value,
-          rating: dRating.value,
-          category: dCategory.value,
-          pricing: dPricing.value,
-          features: dFeatures.value
-            .split(/,|\\n/)
-            .map((s) => s.trim())
-            .filter(Boolean),
-          analysis: dAnalysis.value,
-          pros: dPros.value.split(/\\n/),
-          cons: dCons.value.split(/\\n/),
-          faqs: getFaqs(),
-          related: getRelated(),
-          attributes: {
-            platform: attrPlatform.value,
-            api: attrApi.value,
-            bestFor: attrBestFor.value,
-            imageGen: attrImageGen.value,
+      /* Save tool details (Step 3) */
+      document
+        .getElementById("saveDetailsBtn")
+        .addEventListener("click", () => {
+          const name = document.getElementById("dName").value.trim();
+          if (!name) return alert("Tool name required");
+          detailsByTool[name] = {
+            tag: document.getElementById("dTag").value.trim(),
+            desc: document.getElementById("dDesc").value.trim(),
+            rating: document.getElementById("dRating").value,
+            category: document.getElementById("dCategory").value,
+            pricing: document.getElementById("dPricing").value,
+            attributes: {
+              platform: document.getElementById("attrPlatform").value.trim(),
+              api: document.getElementById("attrApi").value.trim(),
+              bestFor: document.getElementById("attrBestFor").value.trim(),
+              imageGen: document.getElementById("attrImageGen").value.trim(),
+              teamCollab: document
+                .getElementById("attrTeamCollab")
+                .value.trim(),
+              modelType: document.getElementById("attrModelType").value.trim(),
+            },
+            features: document
+              .getElementById("dFeatures")
+              .value.split(/\r?\n|,/)
+              .map((s) => s.trim())
+              .filter(Boolean),
+            analysis: document.getElementById("dAnalysis").value.trim(),
+            pros: document
+              .getElementById("dPros")
+              .value.split(/\r?\n/)
+              .map((s) => s.trim())
+              .filter(Boolean),
+            cons: document
+              .getElementById("dCons")
+              .value.split(/\r?\n/)
+              .map((s) => s.trim())
+              .filter(Boolean),
+            faqs: getFaqsFromUI(),
+            related: getRelatedFromUI(),
+          };
+          alert("Details saved in session memory for: " + name);
+          showStep(2);
+          // optionally re-render tools to reflect any top-level changes
+          renderTools();
+        });
+
+      /* Utilities */
+      function escapeHtml(s) {
+        if (!s) return "";
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+      }
+      function escapeAttr(s) {
+        return (s || "").replaceAll('"', "&quot;");
+      }
+
+      /* Back nav */
+      document
+        .getElementById("backToCat")
+        .addEventListener("click", () => showStep(1));
+      document
+        .getElementById("backToTools")
+        .addEventListener("click", () => showStep(2));
+
+      /* Init demo placeholder (optional) */
+      if (categories.length === 0) {
+        categories.push("Web Development");
+        toolsByCategory["Web Development"] = [
+          {
+            name: "ExampleTool",
+            category: "Web Development",
+            pricing: "Free",
+            platform: "Web",
+            rating: "4.5",
+            website: "https://example.com",
+            youtube: "",
+            instagram: "",
+            facebook: "",
+            shortDesc: "Sample",
           },
-        };
-        alert("Detailed info saved (in memory)");
-      });
-      renderTools();
+        ];
+      }
+      renderCategories();
     </script>
   </body>
 </html>
