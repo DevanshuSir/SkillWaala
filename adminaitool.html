@@ -275,9 +275,12 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-       
-          <img src="./media/ok quality logo.png" alt="Logo" width="130" class="navbar-brand fw-bold mx-auto" />
- 
+        <img
+          src="./media/ok quality logo.png"
+          alt="Logo"
+          width="130"
+          class="navbar-brand fw-bold mx-auto"
+        />
       </div>
     </nav>
 
@@ -486,7 +489,7 @@
                 </div>
 
                 <!-- Attributes -->
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <h6 class="mt-2">Attributes</h6>
                   <div class="row g-2">
                     <div class="col-md-3">
@@ -522,7 +525,17 @@
                       </select>
                     </div>
                   </div>
-                </div>
+                </div> -->
+
+                <div class="col-12">
+  <h6 class="mt-2 d-flex justify-content-between align-items-center">
+    <span>Attributes</span>
+    <button id="addAttrBtn" class="btn btn-outline-secondary btn-sm">
+      <i class="bi bi-plus-lg"></i> Add Attribute
+    </button>
+  </h6>
+  <div id="attrContainer" class="row g-2"></div>
+</div>
 
                 <!-- Compare With (dynamic rows) -->
                 <div class="col-12">
@@ -1131,13 +1144,13 @@
 
         // fill attributes & details if present in detailsByTool
         const d = detailsByTool[tool.name] || {};
-        document.getElementById("attrPlatform").value =
-          d.attributes?.platform || tool.platform || "Web";
-        document.getElementById("attrApi").value = d.attributes?.api || "";
-        document.getElementById("attrBestFor").value =
-          d.attributes?.bestFor || "";
-        document.getElementById("attrImageGen").value =
-          d.attributes?.imageGen || "";
+        // document.getElementById("attrPlatform").value =
+        //   d.attributes?.platform || tool.platform || "Web";
+        // document.getElementById("attrApi").value = d.attributes?.api || "";
+        // document.getElementById("attrBestFor").value =
+        //   d.attributes?.bestFor || "";
+        // document.getElementById("attrImageGen").value =
+        //   d.attributes?.imageGen || "";
 
         document.getElementById("dFeatures").value = (d.features || []).join(
           ", ",
@@ -1484,12 +1497,7 @@
             rating: Number(document.getElementById("dRating").value) || 0,
             category: document.getElementById("dCategory").value,
             pricing: document.getElementById("dPricing").value,
-            attributes: {
-              platform: document.getElementById("attrPlatform").value.trim(),
-              api: document.getElementById("attrApi").value.trim(),
-              bestFor: document.getElementById("attrBestFor").value.trim(),
-              imageGen: document.getElementById("attrImageGen").value.trim(),
-            },
+            
             features: document
               .getElementById("dFeatures")
               .value.split(/\r?\n|,/)
@@ -1604,5 +1612,71 @@
         });
       }
     </script>
+
+    <script>
+/***************
+ ✅ Dynamic Dropdown Attributes System
+***************/
+function renderAttributes(list = []) {
+  const container = document.getElementById("attrContainer");
+  container.innerHTML = "";
+  if (!list || list.length === 0) {
+    container.innerHTML =
+      '<div class="small-muted">No attributes added yet.</div>';
+    return;
+  }
+  list.forEach((attr) => addAttributeRow(attr.name, attr.value));
+}
+
+function addAttributeRow(name = "", value = "") {
+  const container = document.getElementById("attrContainer");
+  const div = document.createElement("div");
+  div.className = "col-md-6 attr-row";
+  div.innerHTML = `
+    <div class="d-flex align-items-center gap-2">
+      <input type="text" class="form-control attr-name" placeholder="Attribute Name" value="${name}">
+      <select class="form-select attr-value">
+        <option value="">-- Select Value --</option>
+        <option value="Yes" ${value==="Yes"?"selected":""}>Yes</option>
+        <option value="No" ${value==="No"?"selected":""}>No</option>
+        
+      </select>
+      <button class="btn btn-outline-danger btn-sm" type="button" onclick="this.closest('.attr-row').remove()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+  `;
+  container.appendChild(div);
+}
+
+document.getElementById("addAttrBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  addAttributeRow();
+});
+
+function getAttributesFromUI() {
+  const attrs = [];
+  document.querySelectorAll(".attr-row").forEach((row) => {
+    const name = row.querySelector(".attr-name").value.trim();
+    const value = row.querySelector(".attr-value").value.trim();
+    if (name && value) attrs.push({ name, value });
+  });
+  return attrs;
+}
+
+/***************
+ 🔁 Hook into Save Details (existing code)
+***************/
+const oldSaveHandler = document.getElementById("saveDetailsBtn").onclick;
+document.getElementById("saveDetailsBtn").onclick = () => {
+  if (typeof oldSaveHandler === "function") oldSaveHandler();
+  if (typeof detailsByTool === "object") {
+    const name = document.getElementById("dName").value.trim();
+    if (name && detailsByTool[name]) {
+      detailsByTool[name].attributes = getAttributesFromUI();
+    }
+  }
+};
+</script>
   </body>
 </html>
