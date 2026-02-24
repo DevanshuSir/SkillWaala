@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="./css/adminaitool.css" />
 
     <style>
-      /* ✅ Extra Styling for Animated Popup */
+
+
+
+    
       .modal-content {
         border-radius: 16px;
         overflow: hidden;
@@ -125,30 +128,11 @@
         background: #ea580c;
         color: #fff;
       }
-      .card {
+       .card {
         border-radius: 10px;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
         border: none;
-      }
-      .small-muted {
-        font-size: 0.85rem;
-        color: #6b7280;
-      }
-      @media (max-width: 768px) {
-        .sidebar {
-          position: relative;
-          width: 100%;
-          height: auto;
-        }
-        .content-area {
-          margin-left: 0;
-          padding: 16px;
-        }
-      }
-
-      .card {
-        border-radius: 10px;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        background: #fff;
       }
       .btn-orange {
         background: #f97316;
@@ -158,32 +142,63 @@
         background: #ea580c;
         color: #fff;
       }
-      .step-section {
-        display: none;
-      }
-      .step-section.active {
-        display: block;
-      }
-      .category-card {
-        cursor: pointer;
-        transition: all 0.18s ease;
-      }
-      .category-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      }
       .small-muted {
         font-size: 0.85rem;
         color: #6b7280;
       }
-      a.small-link {
-        color: #0d6efd;
-        text-decoration: none;
+      .img-thumb {
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 8px;
       }
-      @media (max-width: 768px) {
-        .container {
-          padding: 8px;
-        }
+     
+      .star-widget {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .star-widget .star {
+        font-size: 20px;
+        cursor: pointer;
+        color: #ddd;
+        transition:
+          color 0.12s ease,
+          transform 0.08s ease;
+      }
+      .star-widget .star:hover {
+        transform: scale(1.08);
+      }
+      .star-widget .star.filled {
+        color: #ffd700;
+      } /* golden */
+      .compare-row {
+        border: 1px solid #e9ecef;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: #fff;
+      }
+      .suggestions {
+        position: absolute;
+        z-index: 60;
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ddd;
+        max-height: 160px;
+        overflow: auto;
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      }
+      .suggestions li {
+        padding: 8px 10px;
+        cursor: pointer;
+      }
+      .suggestions li:hover {
+        background: #f1f5f9;
+      }
+      .datalist-hidden {
+        display: none;
       }
     </style>
   </head>
@@ -199,7 +214,7 @@
         <a class="nav-link active" href="./admin.html" data-title="Dashboard">
           <i class="fa-solid fa-gauge me-1"></i> <span>Dashboard</span>
         </a>
-        <a
+          <a
           class="nav-link"
           href="./admintotalcourse.html"
           data-title="Total Courses"
@@ -247,15 +262,6 @@
           ><span>Hiring Portal</span>
         </a>
 
-        <a
-          class="nav-link"
-          href="./adminaitool.html"
-          data-title="Hiring Portal"
-        >
-          <i class="fa-solid fa-arrows-down-to-people me-1"></i
-          ><span>AI Tools</span>
-        </a>
-
         <a class="nav-link" href="./index.html" data-title="Logout">
           <i class="fa-solid fa-right-from-bracket me-1"></i><span>Logout</span>
         </a>
@@ -269,12 +275,9 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-        <img
-          src="./media/ok quality logo.png"
-          alt="Logo"
-          width="130"
-          class="navbar-brand fw-bold mx-auto"
-        />
+       
+          <img src="./media/ok quality logo.png" alt="Logo" width="130" class="navbar-brand fw-bold mx-auto" />
+ 
       </div>
     </nav>
 
@@ -336,11 +339,9 @@
         </div>
 
         <div class="container mt-3">
-          <h3 class="text-center mb-4 fw-bold">
-            AI Tools Admin Panel
-          </h3>
+          <h3 class="text-center mb-4 fw-bold">AI Tools Admin Panel</h3>
 
-          <!-- Step top controls -->
+          <!-- step controls -->
           <div class="mb-3 d-flex justify-content-between align-items-center">
             <div>
               <span class="badge bg-primary"
@@ -380,7 +381,7 @@
           </section>
 
           <!-- STEP 2: Tools -->
-          <section id="step2" class="step-section">
+          <section id="step2" class="step-section" style="display: none">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div>
                 <button
@@ -410,6 +411,7 @@
                 <thead class="table-light">
                   <tr>
                     <th>#</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Pricing</th>
@@ -427,13 +429,13 @@
             </div>
           </section>
 
-          <!-- STEP 3: Full Details -->
-          <section id="step3" class="step-section">
+          <!-- STEP 3: Details -->
+          <section id="step3" class="step-section" style="display: none">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div>
                 <button
                   id="backToTools"
-                  class="btn btn-outline-secondary btn-sm me-2"
+                  class="btn btn-outline-secondary btn-sm me-2 mb-3"
                 >
                   <i class="bi bi-arrow-left"></i> Back
                 </button>
@@ -458,19 +460,15 @@
                   <input id="dTag" class="form-control" />
                 </div>
 
-                <div class="col-12">
-                  <label class="form-label">Short Description</label>
-                  <textarea id="dDesc" class="form-control" rows="2"></textarea>
-                </div>
-
                 <div class="col-md-4">
-                  <label class="form-label">Rating</label>
-                  <input
-                    id="dRating"
-                    type="number"
-                    step="0.1"
-                    class="form-control"
-                  />
+                  <label class="form-label d-block">Rating</label>
+                  <!-- hidden input keeps numeric rating value -->
+                  <input type="hidden" id="dRating" value="0" />
+                  <div
+                    id="dRatingStars"
+                    class="star-widget"
+                    aria-label="Tool rating"
+                  ></div>
                 </div>
 
                 <div class="col-md-4">
@@ -492,47 +490,51 @@
                   <h6 class="mt-2">Attributes</h6>
                   <div class="row g-2">
                     <div class="col-md-3">
-                      <input
-                        id="attrPlatform"
-                        class="form-control"
-                        placeholder="Platform"
-                      />
+                      <label class="form-label">Platform</label>
+                      <select id="attrPlatform" class="form-select">
+                        <option>Web</option>
+                        <option>App</option>
+                        <option>Web + App</option>
+                      </select>
                     </div>
                     <div class="col-md-3">
-                      <input
-                        id="attrApi"
-                        class="form-control"
-                        placeholder="API (Yes/No)"
-                      />
+                      <label class="form-label">API (Yes/No)</label>
+                      <select id="attrApi" class="form-select">
+                        <option value="">--Select--</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
                     </div>
                     <div class="col-md-3">
-                      <input
-                        id="attrBestFor"
-                        class="form-control"
-                        placeholder="Best For"
-                      />
+                      <label class="form-label">Best For</label>
+                      <select id="attrBestFor" class="form-select">
+                        <option>Creators</option>
+                        <option>Designer</option>
+                        <option>Developer</option>
+                      </select>
                     </div>
                     <div class="col-md-3">
-                      <input
-                        id="attrImageGen"
-                        class="form-control"
-                        placeholder="Image Gen (Yes/No)"
-                      />
+                      <label class="form-label">Pricing</label>
+                      <select id="attrImageGen" class="form-select">
+                        <option>Free</option>
+                        <option>Paid</option>
+                        <option>Free+Paid</option>
+                      </select>
                     </div>
-                    <div class="col-md-3 mt-2">
-                      <input
-                        id="attrTeamCollab"
-                        class="form-control"
-                        placeholder="Team Collab (Yes/No)"
-                      />
-                    </div>
-                    <div class="col-md-3 mt-2">
-                      <input
-                        id="attrModelType"
-                        class="form-control"
-                        placeholder="Model Type"
-                      />
-                    </div>
+                  </div>
+                </div>
+
+                <!-- Compare With (dynamic rows) -->
+                <div class="col-12">
+                  <h6 class="mt-3">Compare With (Add multiple tools)</h6>
+                  <div id="compareContainer"></div>
+                  <div class="mt-2">
+                    <button
+                      id="addCompareBtn"
+                      class="btn btn-outline-secondary btn-sm"
+                    >
+                      <i class="bi bi-plus-lg"></i> Add Tool to Compare
+                    </button>
                   </div>
                 </div>
 
@@ -592,25 +594,29 @@
                   <ul id="faqList" class="list-group mt-2"></ul>
                 </div>
 
-                <!-- Related Tools -->
+                <!-- Related Tools with autosuggest -->
                 <div class="col-12">
                   <h6>Related Tools</h6>
-                  <div class="row g-2">
-                    <div class="col-md-8">
-                      <input
-                        id="relatedInput"
-                        class="form-control"
-                        placeholder="Related Tool Name"
-                      />
-                    </div>
-                    <div class="col-md-4">
-                      <button
-                        id="addRelatedBtn"
-                        class="btn btn-outline-secondary w-100"
-                      >
-                        Add
-                      </button>
-                    </div>
+                  <div class="position-relative">
+                    <input
+                      id="relatedInput"
+                      class="form-control"
+                      placeholder="Type to search tools..."
+                      autocomplete="off"
+                    />
+                    <ul
+                      id="relatedSuggestions"
+                      class="suggestions"
+                      style="display: none"
+                    ></ul>
+                  </div>
+                  <div class="mt-2">
+                    <button
+                      id="addRelatedBtn"
+                      class="btn btn-outline-secondary"
+                    >
+                      Add
+                    </button>
                   </div>
                   <ul id="relatedList" class="list-group mt-2"></ul>
                 </div>
@@ -618,6 +624,7 @@
             </div>
           </section>
         </div>
+        <!-- container -->
 
         <!-- Category Modal -->
         <div class="modal fade" id="categoryModal" tabindex="-1">
@@ -643,7 +650,7 @@
           </div>
         </div>
 
-        <!-- Tool Modal (quick add / quick edit top-level fields) -->
+        <!-- Tool Modal (quick add/quick edit) -->
         <div class="modal fade" id="toolModal" tabindex="-1">
           <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -661,6 +668,7 @@
                     <label class="form-label">Category</label
                     ><input id="tCategory" class="form-control" readonly />
                   </div>
+
                   <div class="col-md-4">
                     <label class="form-label">Pricing</label
                     ><select id="tPricing" class="form-select">
@@ -673,14 +681,11 @@
                     <label class="form-label">Platform</label
                     ><input id="tPlatform" class="form-control" />
                   </div>
-                  <div class="col-md-4">
-                    <label class="form-label">Rating</label
-                    ><input
-                      id="tRating"
-                      type="number"
-                      step="0.1"
-                      class="form-control"
-                    />
+
+                  <div class="col-md-4 ">
+                    <label class="form-label d-block" >Rating</label>
+                    <input type="hidden" id="tRating" value="0" />
+                    <div id="tRatingStars" class="star-widget"></div>
                   </div>
 
                   <div class="col-md-6">
@@ -700,16 +705,12 @@
                     ><input id="tFacebook" type="url" class="form-control" />
                   </div>
 
-                  <div class="col-12">
-                    <label class="form-label">Short Description</label
-                    ><textarea
-                      id="tDesc"
-                      class="form-control"
-                      rows="2"
-                    ></textarea>
+                  <div class="col-md-6">
+                    <label for="">Tool Image</label>
+                    <input type="file" name="" id="" class="form-control" />
                   </div>
 
-                  <input type="file" name="" id="" class="form-control" />
+                  <!-- optional image upload placeholder (if you added earlier) -->
                 </form>
               </div>
               <div class="modal-footer">
@@ -720,7 +721,6 @@
             </div>
           </div>
         </div>
-      </div>
 
       <!-- Footer -->
       <footer>
@@ -735,46 +735,7 @@
         </div>
       </footer>
 
-      <!-- ✅ Deactivate Confirmation Modal -->
-      <div
-        class="modal fade"
-        id="deactivateModal"
-        tabindex="-1"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-danger text-white">
-              <h5 class="modal-title">Deactivate Trainer</h5>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <i class="bi bi-exclamation-triangle-fill"></i>
-              <p>Are you sure you want to deactivate this trainer?</p>
-            </div>
-            <div class="modal-footer justify-content-center">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                No
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                id="confirmDeactivate"
-              >
-                Yes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+   
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -784,6 +745,7 @@
       const toggleBtn = document.querySelector(".sidebar-toggle-btn");
       const navLinks = document.querySelectorAll(".sidebar .nav-link");
 
+      // Sidebar toggle for desktop + mobile
       toggleBtn.addEventListener("click", () => {
         if (window.innerWidth < 992) {
           sidebar.classList.toggle("show");
@@ -792,10 +754,14 @@
         }
       });
 
+      // ✅ Auto set active link based on URL
       const currentLocation = window.location.href;
       navLinks.forEach((link) => {
-        if (link.href === currentLocation) link.classList.add("active");
-        else link.classList.remove("active");
+        if (link.href === currentLocation) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
       });
     </script>
 
@@ -825,23 +791,40 @@
     </script>
 
     <script>
+      /***************
+       Core in-memory data (unchanged)
+      ***************/
       let categories = [];
       let toolsByCategory = {};
       let detailsByTool = {};
       let currentCategory = null;
       let editingToolIndex = null;
 
-      /* Step helpers */
+      /***************
+       Utility functions
+      ***************/
+      function escapeHtml(s) {
+        if (!s) return "";
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+      }
+      function escapeAttr(s) {
+        return (s || "").replaceAll('"', "&quot;");
+      }
+
+      /***************
+       Step helpers (flow)
+      ***************/
       function showStep(n) {
-        document
-          .querySelectorAll(".step-section")
-          .forEach((s, i) => s.classList.toggle("active", i === n - 1));
+        document.querySelectorAll(".step-section").forEach((s, i) => {
+          s.style.display = i === n - 1 ? "" : "none";
+        });
         document.getElementById("currentStep").innerText = n;
         const titles = ["Manage Categories", "Manage Tools", "Tool Details"];
         document.getElementById("stepTitle").innerText = titles[n - 1];
       }
-
-      /* Nav btns */
       document.getElementById("goCat").onclick = () => showStep(1);
       document.getElementById("goTools").onclick = () => {
         if (!currentCategory) return alert("Open a category first");
@@ -849,14 +832,21 @@
       };
       document.getElementById("goDetails").onclick = () =>
         alert("Open a tool from Step 2 to edit full details.");
+      document
+        .getElementById("backToCat")
+        .addEventListener("click", () => showStep(1));
+      document
+        .getElementById("backToTools")
+        .addEventListener("click", () => showStep(2));
 
-      /* CATEGORY: add / render / open */
+      /***************
+       Render categories
+      ***************/
       function renderCategories() {
         const grid = document.getElementById("categoryGrid");
         grid.innerHTML = "";
         if (categories.length === 0) {
-          grid.innerHTML =
-            '<div class="col-12"><div class="alert alert-info">No categories yet. Add one using "Add Category".</div></div>';
+          grid.innerHTML = `<div class="col-12"><div class="alert alert-info">No categories yet. Add one using "Add Category".</div></div>`;
           return;
         }
         categories.forEach((cat) => {
@@ -864,20 +854,21 @@
           grid.insertAdjacentHTML(
             "beforeend",
             `
-      <div class="col-md-4 mb-3">
-        <div class="card p-3 category-card">
-          <div class="d-flex justify-content-between align-items-start">
-            <div>
-              <h5 class="mb-1">${escapeHtml(cat)}</h5>
-              <div class="small-muted">${count} tools</div>
+            <div class="col-md-4 mb-3">
+              <div class="card p-3 category-card">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="mb-1">${escapeHtml(cat)}</h5>
+                    <div class="small-muted">${count} tools</div>
+                  </div>
+                  <div class="text-end">
+                    <button class="btn btn-sm btn-outline-primary me-1" onclick="openCategory(event,'${escapeAttr(cat)}')"><i class="bi bi-box-arrow-up-right"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(event,'${escapeAttr(cat)}')"><i class="bi bi-trash"></i></button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="text-end">
-              <button class="btn btn-sm btn-outline-primary me-1" onclick="openCategory(event,'${escapeAttr(cat)}')"><i class="bi bi-box-arrow-up-right"></i></button>
-              <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(event,'${escapeAttr(cat)}')"><i class="bi bi-trash"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>`,
+          `,
           );
         });
       }
@@ -910,7 +901,6 @@
         if (!confirm(`Delete category "${cat}" and its tools?`)) return;
         categories = categories.filter((c) => c !== cat);
         delete toolsByCategory[cat];
-        // optionally delete details of tools in that category
         renderCategories();
         if (currentCategory === cat) {
           currentCategory = null;
@@ -918,68 +908,162 @@
         }
       };
 
-      /* TOOLS: render / add / quick-edit / delete / open detail */
+      /***************
+       Star widget utilities
+       - createStarWidget(containerEl, inputEl)
+       - setStarWidgetValue(containerEl, value)
+       - highlightStars
+      ***************/
+      function createStarWidget(containerElOrId, inputElOrId) {
+        const container =
+          typeof containerElOrId === "string"
+            ? document.getElementById(containerElOrId)
+            : containerElOrId;
+        const input =
+          typeof inputElOrId === "string"
+            ? document.getElementById(inputElOrId)
+            : inputElOrId;
+        if (!container || !input) return;
+        container.innerHTML = "";
+        for (let i = 1; i <= 5; i++) {
+          const star = document.createElement("i");
+          star.className = "bi bi-star star";
+          star.dataset.value = i;
+          star.title = i + " star";
+          star.addEventListener("mouseenter", () =>
+            highlightStars(container, i),
+          );
+          star.addEventListener("mouseleave", () =>
+            highlightStars(container, Number(input.value) || 0),
+          );
+          star.addEventListener("click", () => {
+            input.value = i;
+            highlightStars(container, i);
+          });
+          container.appendChild(star);
+        }
+        // initial highlight
+        highlightStars(container, Number(input.value) || 0);
+      }
+      function highlightStars(container, count) {
+        if (typeof container === "string")
+          container = document.getElementById(container);
+        if (!container) return;
+        container.querySelectorAll(".star").forEach((st) => {
+          const v = Number(st.dataset.value);
+          if (v <= count) {
+            st.classList.remove("bi-star");
+            st.classList.add("bi-star-fill");
+            st.classList.add("filled");
+            st.style.color = "#FFD700";
+          } else {
+            st.classList.remove("bi-star-fill");
+            st.classList.add("bi-star");
+            st.classList.remove("filled");
+            st.style.color = "#ccc";
+          }
+        });
+      }
+      function setStarWidgetValue(containerId, value) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        // find related input by convention: containerId 'dRatingStars' => input id 'dRating'
+        const inputId = containerId.replace(/Stars$/, "");
+        const input = document.getElementById(inputId);
+        if (input) input.value = value;
+        highlightStars(container, Number(value) || 0);
+      }
+
+      /***************
+       Render tools table (Step 2)
+      ***************/
+      function linkOrDash(url) {
+        if (!url) return "-";
+        const short = url.length > 30 ? url.slice(0, 28) + "..." : url;
+        return `<a href="${escapeAttr(url)}" target="_blank" rel="noreferrer" class="small-link">${escapeHtml(short)}</a>`;
+      }
+
       function renderTools() {
         const tbody = document.getElementById("toolsTable");
         tbody.innerHTML = "";
         const arr = toolsByCategory[currentCategory] || [];
         if (arr.length === 0) {
           tbody.innerHTML =
-            '<tr><td colspan="11" class="text-center text-muted">No tools yet. Add using "Add Tool".</td></tr>';
+            '<tr><td colspan="12" class="text-center text-muted">No tools yet. Add using "Add Tool".</td></tr>';
           return;
         }
         arr.forEach((t, i) => {
+          // rating stars display (readonly)
+          const rating = Number(t.rating) || 0;
+          let starsHTML = "";
+          for (let s = 1; s <= 5; s++) {
+            starsHTML += `<i class="${s <= rating ? "bi bi-star-fill" : "bi bi-star"}" style="color:${s <= rating ? "#FFD700" : "#ddd"}; margin-right:3px;"></i>`;
+          }
           tbody.insertAdjacentHTML(
             "beforeend",
             `
-      <tr>
-        <td>${i + 1}</td>
-        <td>${escapeHtml(t.name)}</td>
-        <td>${escapeHtml(t.category)}</td>
-        <td>${escapeHtml(t.pricing)}</td>
-        <td>${escapeHtml(t.platform)}</td>
-        <td>${linkOrDash(t.website)}</td>
-        <td>${linkOrDash(t.youtube)}</td>
-        <td>${linkOrDash(t.instagram)}</td>
-        <td>${linkOrDash(t.facebook)}</td>
-        <td>${escapeHtml(t.rating || "-")}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary me-1" onclick="openDetail('${escapeAttr(t.name)}')"><i class="bi bi-pencil"></i></button>
-          <button class="btn btn-sm btn-outline-secondary me-1" onclick="quickEdit('${i}')"><i class="bi bi-pencil-square"></i></button>
-          <button class="btn btn-sm btn-outline-danger" onclick="deleteTool(${i})"><i class="bi bi-trash"></i></button>
-        </td>
-      </tr>
-    `,
+            <tr>
+              <td>${i + 1}</td>
+              <td>${t.image ? `<img src="${escapeAttr(t.image)}" class="img-thumb">` : "-"}</td>
+              <td>${escapeHtml(t.name)}</td>
+              <td>${escapeHtml(t.category)}</td>
+              <td>${escapeHtml(t.pricing)}</td>
+              <td>${escapeHtml(t.platform)}</td>
+              <td>${linkOrDash(t.website)}</td>
+              <td>${linkOrDash(t.youtube)}</td>
+              <td>${linkOrDash(t.instagram)}</td>
+              <td>${linkOrDash(t.facebook)}</td>
+              <td>${starsHTML}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="openDetailByIndex(${i})" title="Details"><i class="bi bi-plus-lg"></i></button>
+                <button class="btn btn-sm btn-outline-secondary me-1" onclick="quickEdit(${i})" title="Quick Edit"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteTool(${i})" title="Delete"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          `,
           );
         });
+        // After rendering tools, rebuild datalists for compare rows
+        rebuildCompareDatalists();
       }
 
-      function linkOrDash(url) {
-        if (!url) return "-";
-        const short = url.length > 30 ? url.slice(0, 28) + "..." : url;
-        return `<a href="${escapeAttr(url)}" class="small-link" target="_blank" rel="noreferrer">${escapeHtml(short)}</a>`;
-      }
-
+      /***************
+       Tool modal save / quick edit (Step 2)
+      ***************/
       document.getElementById("saveTool").addEventListener("click", () => {
         const obj = {
           name: document.getElementById("tName").value.trim(),
           category: document.getElementById("tCategory").value,
           pricing: document.getElementById("tPricing").value,
           platform: document.getElementById("tPlatform").value.trim(),
-          rating: document.getElementById("tRating").value.trim(),
+          rating: document.getElementById("tRating").value || "0",
           website: document.getElementById("tWebsite").value.trim(),
           youtube: document.getElementById("tYouTube").value.trim(),
           instagram: document.getElementById("tInsta").value.trim(),
           facebook: document.getElementById("tFacebook").value.trim(),
-          shortDesc: document.getElementById("tDesc").value.trim(),
+          image: document.getElementById("tImagePreview")
+            ? document.getElementById("tImagePreview").src
+            : "",
         };
         if (!obj.name) return alert("Tool name required");
         if (!currentCategory) return alert("Open a category first");
-        toolsByCategory[currentCategory].push(obj);
+        // if editingToolIndex not null then update else push
+        if (editingToolIndex !== null) {
+          toolsByCategory[currentCategory][editingToolIndex] = obj;
+          editingToolIndex = null;
+        } else {
+          toolsByCategory[currentCategory].push(obj);
+        }
         bootstrap.Modal.getInstance(
           document.getElementById("toolModal"),
         ).hide();
         document.getElementById("toolForm").reset();
+        // reset star widget
+        setStarWidgetValue("tRatingStars", 0);
+        if (document.getElementById("tImagePreview")) {
+          document.getElementById("tImagePreview").style.display = "none";
+          document.getElementById("tImagePreview").src = "";
+        }
         renderTools();
       });
 
@@ -988,137 +1072,321 @@
         if (!arr || !arr[index]) return;
         const t = arr[index];
         editingToolIndex = index;
-        // fill modal with values for quick editing
         document.getElementById("tName").value = t.name;
         document.getElementById("tCategory").value = t.category;
         document.getElementById("tPricing").value = t.pricing;
         document.getElementById("tPlatform").value = t.platform;
-        document.getElementById("tRating").value = t.rating;
         document.getElementById("tWebsite").value = t.website;
         document.getElementById("tYouTube").value = t.youtube;
         document.getElementById("tInsta").value = t.instagram;
         document.getElementById("tFacebook").value = t.facebook;
-        document.getElementById("tDesc").value = t.shortDesc || "";
+        document.getElementById("tRating").value = t.rating || 0;
+        setStarWidgetValue("tRatingStars", Number(t.rating) || 0);
+        // image preview
+        if (t.image) {
+          let imgPrev = document.getElementById("tImagePreview");
+          if (!imgPrev) {
+            const div = document.createElement("div");
+            div.className = "mt-2 text-center";
+            imgPrev = document.createElement("img");
+            imgPrev.id = "tImagePreview";
+            imgPrev.style.maxWidth = "100px";
+            imgPrev.style.borderRadius = "6px";
+            div.appendChild(imgPrev);
+            document.querySelector("#toolForm").appendChild(div);
+          }
+          imgPrev.src = t.image;
+          imgPrev.style.display = "block";
+        }
         new bootstrap.Modal(document.getElementById("toolModal")).show();
-
-        // override save action to update instead of push
-        const saveBtn = document.getElementById("saveTool");
-        const handler = function () {
-          const updated = {
-            name: document.getElementById("tName").value.trim(),
-            category: document.getElementById("tCategory").value,
-            pricing: document.getElementById("tPricing").value,
-            platform: document.getElementById("tPlatform").value.trim(),
-            rating: document.getElementById("tRating").value.trim(),
-            website: document.getElementById("tWebsite").value.trim(),
-            youtube: document.getElementById("tYouTube").value.trim(),
-            instagram: document.getElementById("tInsta").value.trim(),
-            facebook: document.getElementById("tFacebook").value.trim(),
-            shortDesc: document.getElementById("tDesc").value.trim(),
-          };
-          if (!updated.name) return alert("Tool name required");
-          toolsByCategory[currentCategory][editingToolIndex] = updated;
-          bootstrap.Modal.getInstance(
-            document.getElementById("toolModal"),
-          ).hide();
-          document.getElementById("toolForm").reset();
-          renderTools();
-          // cleanup: restore original click behavior by removing this handler and re-adding original
-          saveBtn.removeEventListener("click", handler);
-          saveBtn.addEventListener("click", defaultSaveToolHandler);
-          editingToolIndex = null;
-        };
-        // replace handler
-        saveBtn.removeEventListener("click", defaultSaveToolHandler);
-        saveBtn.addEventListener("click", handler, { once: true });
       };
 
-      // keep default save handler reference to restore after quick edit
-      function defaultSaveToolHandler() {
-        const obj = {
-          name: document.getElementById("tName").value.trim(),
-          category: document.getElementById("tCategory").value,
-          pricing: document.getElementById("tPricing").value,
-          platform: document.getElementById("tPlatform").value.trim(),
-          rating: document.getElementById("tRating").value.trim(),
-          website: document.getElementById("tWebsite").value.trim(),
-          youtube: document.getElementById("tYouTube").value.trim(),
-          instagram: document.getElementById("tInsta").value.trim(),
-          facebook: document.getElementById("tFacebook").value.trim(),
-          shortDesc: document.getElementById("tDesc").value.trim(),
-        };
-        if (!obj.name) return alert("Tool name required");
-        if (!currentCategory) return alert("Open a category first");
-        toolsByCategory[currentCategory].push(obj);
-        bootstrap.Modal.getInstance(
-          document.getElementById("toolModal"),
-        ).hide();
-        document.getElementById("toolForm").reset();
-        renderTools();
-      }
-      document
-        .getElementById("saveTool")
-        .addEventListener("click", defaultSaveToolHandler);
-
-      window.deleteTool = function (i) {
+      function deleteTool(i) {
         if (!confirm("Delete tool?")) return;
         toolsByCategory[currentCategory].splice(i, 1);
         renderTools();
-      };
+      }
 
-      /* Open full detail editor (Step 3) */
-      window.openDetail = function (toolName) {
-        // find tool object by name in current category
+      function openDetailByIndex(i) {
+        const tool = (toolsByCategory[currentCategory] || [])[i];
+        if (!tool) return;
+        openDetail(tool.name);
+      }
+
+      /***************
+       Open full detail (Step 3)
+      ***************/
+      function openDetail(toolName) {
         const tool =
           (toolsByCategory[currentCategory] || []).find(
             (t) => t.name === toolName,
           ) || {};
-        // fill Step 3 fields
         document.getElementById("dName").value = tool.name || toolName;
         document.getElementById("dCategory").value =
-          currentCategory || tool.category || "";
-        document.getElementById("dRating").value = tool.rating || "";
+          tool.category || currentCategory || "";
         document.getElementById("dPricing").value = tool.pricing || "";
-        // if details exist, fill them
+        // main rating
+        document.getElementById("dRating").value = Number(tool.rating) || 0;
+        setStarWidgetValue("dRatingStars", Number(tool.rating) || 0);
+
+        // fill attributes & details if present in detailsByTool
         const d = detailsByTool[tool.name] || {};
-        document.getElementById("dTag").value = d.tag || "";
-        document.getElementById("dDesc").value = d.desc || tool.shortDesc || "";
         document.getElementById("attrPlatform").value =
-          d.attributes?.platform || tool.platform || "";
+          d.attributes?.platform || tool.platform || "Web";
         document.getElementById("attrApi").value = d.attributes?.api || "";
         document.getElementById("attrBestFor").value =
           d.attributes?.bestFor || "";
         document.getElementById("attrImageGen").value =
           d.attributes?.imageGen || "";
-        document.getElementById("attrTeamCollab").value =
-          d.attributes?.teamCollab || "";
-        document.getElementById("attrModelType").value =
-          d.attributes?.modelType || "";
+
         document.getElementById("dFeatures").value = (d.features || []).join(
           ", ",
         );
         document.getElementById("dAnalysis").value = d.analysis || "";
         document.getElementById("dPros").value = (d.pros || []).join("\n");
         document.getElementById("dCons").value = (d.cons || []).join("\n");
+
         renderFaqs(d.faqs || []);
         renderRelated(d.related || []);
-        showStep(3);
-      };
 
-      /* FAQ helpers */
+        // render compare rows stored or empty
+        renderCompareRows(d.compare || []);
+
+        showStep(3);
+      }
+
+      /***************
+       Compare rows management
+      ***************/
+      let compareRowCounter = 0;
+      function renderCompareRows(rows) {
+        const container = document.getElementById("compareContainer");
+        container.innerHTML = "";
+        if (!rows || rows.length === 0) {
+          container.innerHTML =
+            '<div class="small-muted">No comparison tools added yet.</div>';
+          return;
+        }
+        rows.forEach((prefill) => addCompareRow(prefill));
+      }
+
+      function addCompareRow(prefill) {
+        compareRowCounter++;
+        const id = compareRowCounter;
+        const container = document.getElementById("compareContainer");
+        const div = document.createElement("div");
+        div.className = "compare-row";
+        div.id = "compareRow_" + id;
+
+        div.innerHTML = `
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <strong>Compare Tool</strong>
+            <button class="btn btn-sm btn-outline-danger" type="button" onclick="removeCompareRow(${id})"><i class="bi bi-x"></i></button>
+          </div>
+          <div class="row g-2">
+            <div class="col-md-3">
+              <label class="form-label">Tool Name</label>
+              <input list="toolsList_${id}" class="form-control compare-tool-name" id="compare_tool_${id}" placeholder="Type or select..." />
+              <datalist id="toolsList_${id}"></datalist>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Plan</label>
+              <select id="compare_plan_${id}" class="form-select">
+                <option>Free</option><option>Paid</option><option>Free+Paid</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">AI Quality</label>
+              <input type="hidden" id="compare_aiQuality_input_${id}" value="0" />
+              <div id="compare_aiQuality_${id}" class="star-widget"></div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Accuracy</label>
+              <select id="compare_model_${id}" class="form-select">
+                <option>Best</option><option>Average</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">AI Model Type</label>
+              <select id="compare_model_${id}" class="form-select">
+                <option>gpt-4o</option><option>gpt-4</option><option>gpt-3.5</option><option>custom</option>
+              </select>
+            </div>
+
+            
+
+            <div class="col-md-2 mt-2">
+              <label class="form-label">Customization</label>
+              <select id="compare_speed_${id}" class="form-select mt-1"><option>Yes</option><option>No</option></select>
+            </div>
+
+            <div class="col-md-2 mt-2">
+              <label class="form-label">Brand Voice Support</label>
+              <select id="compare_speed_${id}" class="form-select mt-1"><option>Yes</option><option>No</option></select>
+            </div>
+
+            <div class="col-md-2 mt-2">
+              <label class="form-label">API Access</label>
+              <select id="compare_api_${id}" class="form-select mt-1"><option>Yes</option><option>No</option></select>
+            </div>
+
+            <div class="col-md-2 mt-2">
+              <label class="form-label">Image Generation</label>
+              <select id="compare_api_${id}" class="form-select mt-1"><option>Yes</option><option>No</option></select>
+            </div>
+
+            <div class="col-md-2 mt-2">
+              <label class="form-label">Team Collaboration</label>
+              <select id="compare_team_${id}" class="form-select mt-1"><option>Yes</option><option>No</option></select>
+            </div>
+            <div class="col-md-4 mt-2">
+              <label class="form-label">Best For</label>
+              <select id="compare_bestfor_${id}" class="form-select mt-1"><option>Creators</option><option>Designers</option><option>Developers</option></select>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+
+        // populate datalist with current category tools
+        const datalist = document.getElementById("toolsList_" + id);
+        datalist.innerHTML = "";
+        const allTools = (toolsByCategory[currentCategory] || []).map(
+          (t) => t.name,
+        );
+        allTools.forEach((name) => {
+          const opt = document.createElement("option");
+          opt.value = name;
+          datalist.appendChild(opt);
+        });
+
+        // create star widgets for the two star fields
+        createStarWidget(
+          "compare_aiQuality_" + id,
+          "compare_aiQuality_input_" + id,
+        );
+        createStarWidget(
+          "compare_accuracy_" + id,
+          "compare_accuracy_input_" + id,
+        );
+
+        // if prefill provided, set values
+        if (prefill) {
+          document.getElementById("compare_tool_" + id).value =
+            prefill.toolName || "";
+          document.getElementById("compare_plan_" + id).value =
+            prefill.plan || "Free";
+          setStarWidgetValue("compare_aiQuality_" + id, prefill.aiQuality || 0);
+          setStarWidgetValue("compare_accuracy_" + id, prefill.accuracy || 0);
+          document.getElementById("compare_model_" + id).value =
+            prefill.modelType || "gpt-4o";
+          document.getElementById("compare_speed_" + id).value =
+            prefill.speed || "Fast";
+          document.getElementById("compare_api_" + id).value =
+            prefill.apiAccess || "Yes";
+          document.getElementById("compare_team_" + id).value =
+            prefill.teamCollab || "Yes";
+          document.getElementById("compare_bestfor_" + id).value =
+            prefill.bestFor || "Creators";
+        }
+      }
+
+      function removeCompareRow(id) {
+        const el = document.getElementById("compareRow_" + id);
+        if (el) el.remove();
+      }
+
+      document
+        .getElementById("addCompareBtn")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          addCompareRow();
+        });
+
+      // rebuild datalists for compare rows after tools change
+      function rebuildCompareDatalists() {
+        const allTools = (toolsByCategory[currentCategory] || []).map(
+          (t) => t.name,
+        );
+        document.querySelectorAll("[id^='compareRow_']").forEach((row) => {
+          const id = row.id.replace("compareRow_", "");
+          const datalist = document.getElementById("toolsList_" + id);
+          if (datalist) {
+            datalist.innerHTML = allTools
+              .map((n) => `<option value="${escapeHtml(n)}"></option>`)
+              .join("");
+          }
+        });
+      }
+
+      /***************
+       Related tools autosuggest
+      ***************/
+      const relatedInput = document.getElementById("relatedInput");
+      const relatedSuggestions = document.getElementById("relatedSuggestions");
+
+      relatedInput.addEventListener("input", () => {
+        const q = relatedInput.value.trim().toLowerCase();
+        if (!q) {
+          relatedSuggestions.style.display = "none";
+          relatedSuggestions.innerHTML = "";
+          return;
+        }
+        const candidates = (toolsByCategory[currentCategory] || [])
+          .map((t) => t.name)
+          .filter((n) => n.toLowerCase().includes(q));
+        if (candidates.length === 0) {
+          relatedSuggestions.style.display = "none";
+          relatedSuggestions.innerHTML = "";
+          return;
+        }
+        relatedSuggestions.innerHTML = candidates
+          .map(
+            (c) =>
+              `<li onclick="selectRelated('${escapeAttr(c)}')">${escapeHtml(c)}</li>`,
+          )
+          .join("");
+        relatedSuggestions.style.display = "block";
+      });
+
+      function selectRelated(name) {
+        relatedSuggestions.style.display = "none";
+        relatedInput.value = name;
+      }
+
+      document
+        .getElementById("addRelatedBtn")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          const v = relatedInput.value.trim();
+          if (!v) return alert("Enter or select a related tool");
+          const list = document.getElementById("relatedList");
+          const exists = Array.from(list.children).some(
+            (li) => li.firstChild.textContent.trim() === v,
+          );
+          if (!exists) {
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between";
+            li.innerHTML = `${escapeHtml(v)}<button class="btn btn-sm btn-outline-danger" onclick="removeRelatedItem(this)"><i class="bi bi-x"></i></button>`;
+            list.appendChild(li);
+          }
+          relatedInput.value = "";
+        });
+      function removeRelatedItem(btn) {
+        btn.closest("li").remove();
+      }
+
+      /***************
+       FAQs
+      ***************/
       function renderFaqs(list) {
         const el = document.getElementById("faqList");
         el.innerHTML = "";
-        (list || []).forEach((f, i) =>
+        (list || []).forEach((f, i) => {
           el.insertAdjacentHTML(
             "beforeend",
-            `
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div><strong>Q:</strong> ${escapeHtml(f.q)}<br><small><strong>A:</strong> ${escapeHtml(f.a)}</small></div>
-      <button class="btn btn-sm btn-outline-danger" onclick="removeFaq(${i})"><i class="bi bi-x"></i></button>
-    </li>`,
-          ),
-        );
+            `<li class="list-group-item d-flex justify-content-between align-items-start"><div><strong>Q:</strong> ${escapeHtml(f.q)}<br><small><strong>A:</strong> ${escapeHtml(f.a)}</small></div><button class="btn btn-sm btn-outline-danger" onclick="removeFaq(${i})"><i class="bi bi-x"></i></button></li>`,
+          );
+        });
       }
       function getFaqsFromUI() {
         const arr = [];
@@ -1149,7 +1417,9 @@
         document.getElementById("faqA").value = "";
       });
 
-      /* Related helpers */
+      /***************
+       Render related list (used when loading details)
+      ***************/
       function renderRelated(list) {
         const el = document.getElementById("relatedList");
         el.innerHTML = "";
@@ -1172,28 +1442,46 @@
         arr.splice(i, 1);
         renderRelated(arr);
       };
-      document
-        .getElementById("addRelatedBtn")
-        .addEventListener("click", (e) => {
-          e.preventDefault();
-          const v = document.getElementById("relatedInput").value.trim();
-          if (!v) return alert("Enter related tool");
-          const arr = getRelatedFromUI();
-          arr.push(v);
-          renderRelated(arr);
-          document.getElementById("relatedInput").value = "";
-        });
 
-      /* Save tool details (Step 3) */
+      /***************
+       Save Details (Step 3)
+      ***************/
       document
         .getElementById("saveDetailsBtn")
         .addEventListener("click", () => {
           const name = document.getElementById("dName").value.trim();
           if (!name) return alert("Tool name required");
+          // collect compare rows
+          const compareRows = [];
+          document.querySelectorAll("[id^='compareRow_']").forEach((row) => {
+            const id = row.id.replace("compareRow_", "");
+            const toolName = document
+              .getElementById("compare_tool_" + id)
+              .value.trim();
+            if (!toolName) return; // skip empty rows
+            compareRows.push({
+              toolName,
+              plan: document.getElementById("compare_plan_" + id).value,
+              aiQuality:
+                Number(
+                  document.getElementById("compare_aiQuality_input_" + id)
+                    .value,
+                ) || 0,
+              accuracy:
+                Number(
+                  document.getElementById("compare_accuracy_input_" + id).value,
+                ) || 0,
+              modelType: document.getElementById("compare_model_" + id).value,
+              speed: document.getElementById("compare_speed_" + id).value,
+              apiAccess: document.getElementById("compare_api_" + id).value,
+              teamCollab: document.getElementById("compare_team_" + id).value,
+              bestFor: document.getElementById("compare_bestfor_" + id).value,
+            });
+          });
+
           detailsByTool[name] = {
             tag: document.getElementById("dTag").value.trim(),
-            desc: document.getElementById("dDesc").value.trim(),
-            rating: document.getElementById("dRating").value,
+            rating: Number(document.getElementById("dRating").value) || 0,
             category: document.getElementById("dCategory").value,
             pricing: document.getElementById("dPricing").value,
             attributes: {
@@ -1201,10 +1489,6 @@
               api: document.getElementById("attrApi").value.trim(),
               bestFor: document.getElementById("attrBestFor").value.trim(),
               imageGen: document.getElementById("attrImageGen").value.trim(),
-              teamCollab: document
-                .getElementById("attrTeamCollab")
-                .value.trim(),
-              modelType: document.getElementById("attrModelType").value.trim(),
             },
             features: document
               .getElementById("dFeatures")
@@ -1224,52 +1508,101 @@
               .filter(Boolean),
             faqs: getFaqsFromUI(),
             related: getRelatedFromUI(),
+            compare: compareRows,
           };
           alert("Details saved in session memory for: " + name);
           showStep(2);
-          // optionally re-render tools to reflect any top-level changes
           renderTools();
         });
 
-      /* Utilities */
-      function escapeHtml(s) {
-        if (!s) return "";
-        return String(s)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;");
-      }
-      function escapeAttr(s) {
-        return (s || "").replaceAll('"', "&quot;");
+      /***************
+       Init: create star widgets and demo data
+      ***************/
+      document.addEventListener("DOMContentLoaded", () => {
+        // create star widgets for dRating and tRating
+        createStarWidget("dRatingStars", "dRating");
+        createStarWidget("tRatingStars", "tRating");
+
+        // sample demo data if empty
+        if (categories.length === 0) {
+          categories.push("Web Development");
+          toolsByCategory["Web Development"] = [
+            {
+              name: "ExampleTool",
+              category: "Web Development",
+              pricing: "Free",
+              platform: "Web",
+              rating: "4",
+              website: "https://example.com",
+              youtube: "",
+              instagram: "",
+              facebook: "",
+              image: "",
+            },
+          ];
+        }
+        renderCategories();
+      });
+
+      /***************
+       Sidebar toggle + simple notification handling
+      ***************/
+      try {
+        const toggleBtn = document.querySelector(".sidebar-toggle-btn");
+        const sidebar = document.querySelector(".sidebar");
+        toggleBtn.addEventListener("click", () => {
+          if (window.innerWidth < 992) sidebar.classList.toggle("show");
+          else sidebar.classList.toggle("collapsed");
+        });
+      } catch (e) {
+        /* ignore */
       }
 
-      /* Back nav */
-      document
-        .getElementById("backToCat")
-        .addEventListener("click", () => showStep(1));
-      document
-        .getElementById("backToTools")
-        .addEventListener("click", () => showStep(2));
+      // simple bell clear
+      document.getElementById("bell").addEventListener("click", () => {
+        const b = document.getElementById("badge");
+        if (b) b.style.display = "none";
+      });
 
-      /* Init demo placeholder (optional) */
-      if (categories.length === 0) {
-        categories.push("Web Development");
-        toolsByCategory["Web Development"] = [
-          {
-            name: "ExampleTool",
-            category: "Web Development",
-            pricing: "Free",
-            platform: "Web",
-            rating: "4.5",
-            website: "https://example.com",
-            youtube: "",
-            instagram: "",
-            facebook: "",
-            shortDesc: "Sample",
-          },
-        ];
+      /***************
+       Rebuild compare datalists when tools are changed globally
+      ***************/
+      (function patchRenderTools() {
+        const orig = renderTools;
+        renderTools = function () {
+          orig();
+          rebuildCompareDatalists();
+        };
+      })();
+
+      /***************
+       Optional: image upload preview helper (if you add file input later)
+      ***************/
+      // If you'll add input type=file with id 'tImageUpload', this will show preview in modal using id 'tImagePreview'
+      const tImageUpload = document.getElementById("tImageUpload");
+      if (tImageUpload) {
+        tImageUpload.addEventListener("change", (e) => {
+          const f = e.target.files[0];
+          if (!f) return;
+          const r = new FileReader();
+          r.onload = (ev) => {
+            let imgPrev = document.getElementById("tImagePreview");
+            if (!imgPrev) {
+              const div = document.createElement("div");
+              div.className = "mt-2 text-center";
+              imgPrev = document.createElement("img");
+              imgPrev.id = "tImagePreview";
+              imgPrev.style.maxWidth = "100px";
+              imgPrev.style.borderRadius = "6px";
+              div.appendChild(imgPrev);
+              document.querySelector("#toolForm").appendChild(div);
+            }
+            imgPrev.src = ev.target.result;
+            imgPrev.style.display = "block";
+          };
+          r.readAsDataURL(f);
+        });
       }
-      renderCategories();
     </script>
   </body>
 </html>
